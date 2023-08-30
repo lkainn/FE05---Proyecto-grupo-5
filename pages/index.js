@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import LoginForm from '../components/LoginForm';
 import TasksPage from '../components/TasksPage';
 
@@ -21,6 +22,7 @@ const Home = () => {
       ) : (
         <LoginForm onLogin={handleLogin} />
       )}
+      <p>No tienes cuenta? <Link href="/register">Regístrate aquí</Link></p>
     </div>
   );
 };

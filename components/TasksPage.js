@@ -4,6 +4,7 @@ import NewTaskForm from './NewTaskForm';
 const TasksPage = ({ user, onLogout }) => {
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
+  const [filter, setFilter] = useState('all');
 
   const handleAddTask = (newTask) => {
     setTasks([...tasks, newTask]);
@@ -14,22 +15,27 @@ const TasksPage = ({ user, onLogout }) => {
   };
 
   const handleUpdateTask = (updatedTask) => {
-    const updatedTasks = tasks.map((t) =>
-      t === editingTask ? updatedTask : t
+    const updatedTasks = tasks.map((task) =>
+      task === editingTask ? updatedTask : task
     );
     setTasks(updatedTasks);
     setEditingTask(null);
   };
 
-
-  const handleDeleteTask = (task) => {
-    const updatedTasks = tasks.filter((t) => t !== task);
+  const handleDeleteTask = (taskToDelete) => {
+    const updatedTasks = tasks.filter((task) => task !== taskToDelete);
     setTasks(updatedTasks);
   };
 
-  const handleToggleComplete = (task) => {
-    const updatedTasks = tasks.map((t) =>
-      t === task ? { ...t, completed: !t.completed } : t
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+  };
+
+  const handleToggleComplete = (taskToToggle) => {
+    const updatedTasks = tasks.map((task) =>
+      task === taskToToggle
+        ? { ...task, completed: !task.completed }
+        : task
     );
     setTasks(updatedTasks);
   };
@@ -43,29 +49,37 @@ const TasksPage = ({ user, onLogout }) => {
 
       <div>
         <h2>Lista de tareas</h2>
+        <div>
+          <label>Filtrar por:</label>
+          <button onClick={() => handleFilterChange('all')}>Todos</button>
+          <button onClick={() => handleFilterChange('completed')}>Completados</button>
+          <button onClick={() => handleFilterChange('incomplete')}>Incompletos</button>
+        </div>
         <ul>
-          {tasks.map((task, index) => (
-            <li key={index}>
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => handleToggleComplete(task)}
-              />
-              <strong>{task.title}</strong>: {task.description}
-              <button onClick={() => handleEditTask(task)}>Editar</button>
-              <button onClick={() => handleDeleteTask(task)}>Eliminar</button>
-            </li>
-          ))}
+          {tasks
+            .filter((task) => {
+              if (filter === 'completed') {
+                return task.completed;
+              } else if (filter === 'incomplete') {
+                return !task.completed;
+              } else {
+                return true;
+              }
+            })
+            .map((task, index) => (
+              <li key={index}>
+                <strong>{task.title}</strong>: {task.description}
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => handleToggleComplete(task)}
+                />
+                <button onClick={() => handleEditTask(task)}>Editar</button>
+                <button onClick={() => handleDeleteTask(task)}>Eliminar</button>
+              </li>
+            ))}
         </ul>
       </div>
-
-      {editingTask && (
-        <TaskEditForm
-          task={editingTask}
-          onUpdateTask={handleUpdateTask}
-          onCancel={() => setEditingTask(null)}
-        />
-      )}
     </div>
   );
 };

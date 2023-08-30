@@ -6,7 +6,7 @@ const Register = () => {
     <div>
       <h1>Administrador de tareas</h1>
       <RegistrationForm />
-      <p>Ya tenes cuenta? <a href="/login">Loguea aca</a></p>
+      <p>Ya tenes cuenta? <a href="/">Loguea aca</a></p>
     </div>
   );
 };
