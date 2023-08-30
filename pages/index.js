@@ -20,9 +20,11 @@ const Home = () => {
       {user ? (
         <TasksPage user={user} onLogout={handleLogout} />
       ) : (
-        <LoginForm onLogin={handleLogin} />
+        <>
+          <LoginForm onLogin={handleLogin} />
+          <p>No tenes cuenta? <Link href="/register">Regístrate aca</Link></p>
+        </>
       )}
-      <p>No tienes cuenta? <Link href="/register">Regístrate aquí</Link></p>
     </div>
   );
 };

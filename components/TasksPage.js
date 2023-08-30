@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import NewTaskForm from './NewTaskForm';
+import TaskEditForm from './TaskEditForm'; // Importa el componente de edición
+import TaskDeleteButton from './TaskDeleteButton'; // Importa el componente de eliminación
+import TaskFilter from './TaskFilter'; // Importa el componente de filtro
 
 const TasksPage = ({ user, onLogout }) => {
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState('all'); // Estado para el filtro
 
   const handleAddTask = (newTask) => {
     setTasks([...tasks, newTask]);
@@ -15,30 +18,33 @@ const TasksPage = ({ user, onLogout }) => {
   };
 
   const handleUpdateTask = (updatedTask) => {
-    const updatedTasks = tasks.map((task) =>
-      task === editingTask ? updatedTask : task
+    // Actualizar la tarea en la lista de tareas
+    const updatedTasks = tasks.map((t) =>
+      t === editingTask ? updatedTask : t
     );
     setTasks(updatedTasks);
+
+    // Cerrar el formulario de edición
     setEditingTask(null);
   };
 
   const handleDeleteTask = (taskToDelete) => {
-    const updatedTasks = tasks.filter((task) => task !== taskToDelete);
+    const updatedTasks = tasks.filter((t) => t !== taskToDelete);
     setTasks(updatedTasks);
   };
 
-  const handleFilterChange = (newFilter) => {
-    setFilter(newFilter);
-  };
-
-  const handleToggleComplete = (taskToToggle) => {
-    const updatedTasks = tasks.map((task) =>
-      task === taskToToggle
-        ? { ...task, completed: !task.completed }
-        : task
+  const handleToggleComplete = (task) => {
+    const updatedTasks = tasks.map((t) =>
+      t === task ? { ...t, completed: !t.completed } : t
     );
     setTasks(updatedTasks);
   };
+
+  const handleFilterChange = (selectedFilter) => {
+    setFilter(selectedFilter);
+  };
+
+  const filteredTasks = filterTasks(filter, tasks);
 
   return (
     <div>
@@ -49,89 +55,43 @@ const TasksPage = ({ user, onLogout }) => {
 
       <div>
         <h2>Lista de tareas</h2>
-        <div>
-          <label>Filtrar por:</label>
-          <button onClick={() => handleFilterChange('all')}>Todos</button>
-          <button onClick={() => handleFilterChange('completed')}>Completados</button>
-          <button onClick={() => handleFilterChange('incomplete')}>Incompletos</button>
-        </div>
+        <TaskFilter onFilterChange={handleFilterChange} /> {/* Agrega el componente de filtro */}
         <ul>
-          {tasks
-            .filter((task) => {
-              if (filter === 'completed') {
-                return task.completed;
-              } else if (filter === 'incomplete') {
-                return !task.completed;
-              } else {
-                return true;
-              }
-            })
-            .map((task, index) => (
-              <li key={index}>
-                <strong>{task.title}</strong>: {task.description}
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => handleToggleComplete(task)}
-                />
-                <button onClick={() => handleEditTask(task)}>Editar</button>
-                <button onClick={() => handleDeleteTask(task)}>Eliminar</button>
-              </li>
-            ))}
+          {filteredTasks.map((task, index) => (
+            <li key={index}>
+              <strong>{task.title}</strong>: {task.description}
+              <button onClick={() => handleEditTask(task)}>Editar</button>
+              <TaskDeleteButton onDelete={() => handleDeleteTask(task)} /> {/* Agrega el componente de eliminación */}
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => handleToggleComplete(task)}
+              /> {/* Checkbox para tareas completadas */}
+            </li>
+          ))}
         </ul>
       </div>
+
+      {editingTask && (
+        <TaskEditForm
+          task={editingTask}
+          onUpdateTask={handleUpdateTask}
+          onCancel={() => setEditingTask(null)}
+        />
+      )}
     </div>
   );
 };
 
 export default TasksPage;
 
-const TaskEditForm = ({ task, onUpdateTask, onCancel }) => {
-  const [title, setTitle] = useState(task.title);
-  const [description, setDescription] = useState(task.description);
-
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const updatedTask = { ...task, title, description };
-    onUpdateTask(updatedTask);
-  };
-
-  return (
-    <div>
-      <h2>Editar Tarea</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="edit-title">Titulo:</label>
-          <input
-            type="text"
-            id="edit-title"
-            value={title}
-            onChange={handleTitleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="edit-description">Descripcion:</label>
-          <textarea
-            id="edit-description"
-            value={description}
-            onChange={handleDescriptionChange}
-            required
-          />
-        </div>
-        <button type="submit">Guardar Cambios</button>
-        <button type="button" onClick={onCancel}>
-          Cancelar
-        </button>
-      </form>
-    </div>
-  );
+// Función para filtrar tareas según el estado seleccionado
+const filterTasks = (filter, tasks) => {
+  if (filter === 'completed') {
+    return tasks.filter((task) => task.completed);
+  } else if (filter === 'incomplete') {
+    return tasks.filter((task) => !task.completed);
+  } else {
+    return tasks;
+  }
 };
