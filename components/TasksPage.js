@@ -14,14 +14,18 @@ const TasksPage = ({ user, onLogout }) => {
   };
 
   const handleUpdateTask = (updatedTask) => {
-    // Actualizar la tarea en la lista de tareas
-    const updatedTasks = tasks.map((task) =>
-      task === editingTask ? updatedTask : task
+    const updatedTasks = tasks.map((t) =>
+      t === editingTask ? updatedTask : t
     );
     setTasks(updatedTasks);
-
-    // Cerrar el formulario de edición
     setEditingTask(null);
+  };
+
+  const handleToggleComplete = (task) => {
+    const updatedTasks = tasks.map((t) =>
+      t === task ? { ...t, completed: !t.completed } : t
+    );
+    setTasks(updatedTasks);
   };
 
   return (
@@ -36,6 +40,11 @@ const TasksPage = ({ user, onLogout }) => {
         <ul>
           {tasks.map((task, index) => (
             <li key={index}>
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => handleToggleComplete(task)}
+              />
               <strong>{task.title}</strong>: {task.description}
               <button onClick={() => handleEditTask(task)}>Editar</button>
             </li>
