@@ -21,6 +21,12 @@ const TasksPage = ({ user, onLogout }) => {
     setEditingTask(null);
   };
 
+
+  const handleDeleteTask = (task) => {
+    const updatedTasks = tasks.filter((t) => t !== task);
+    setTasks(updatedTasks);
+  };
+
   const handleToggleComplete = (task) => {
     const updatedTasks = tasks.map((t) =>
       t === task ? { ...t, completed: !t.completed } : t
@@ -47,6 +53,7 @@ const TasksPage = ({ user, onLogout }) => {
               />
               <strong>{task.title}</strong>: {task.description}
               <button onClick={() => handleEditTask(task)}>Editar</button>
+              <button onClick={() => handleDeleteTask(task)}>Eliminar</button>
             </li>
           ))}
         </ul>
