@@ -22,7 +22,25 @@ const TaskEditForm = ({ task, onUpdateTask, onCancel }) => {
     <div>
       <h2>Editar Tarea</h2>
       <form onSubmit={handleSubmit}>
-        {/* ... Inputs y campos de edición ... */}
+        <div>
+          <label htmlFor="edit-title">Título:</label>
+          <input
+            type="text"
+            id="edit-title"
+            value={title}
+            onChange={handleTitleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="edit-description">Descripción:</label>
+          <textarea
+            id="edit-description"
+            value={description}
+            onChange={handleDescriptionChange}
+            required
+          />
+        </div>
         <button type="submit">Guardar Cambios</button>
         <button type="button" onClick={onCancel}>
           Cancelar
@@ -33,3 +51,4 @@ const TaskEditForm = ({ task, onUpdateTask, onCancel }) => {
 };
 
 export default TaskEditForm;
+

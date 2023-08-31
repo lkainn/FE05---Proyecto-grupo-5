@@ -1,0 +1,24 @@
+.loginFormContainer {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+  }
+  
+  .loginFormTitle {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .loginFormInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .loginFormButton {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
