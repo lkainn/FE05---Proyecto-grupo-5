@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-const NewTaskForm = ({ onAddTask }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+const TaskEditForm = ({ task, onUpdateTask, onCancel }) => {
+  const [title, setTitle] = useState(task.title);
+  const [description, setDescription] = useState(task.description);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -14,44 +14,41 @@ const NewTaskForm = ({ onAddTask }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title.trim() !== '') {
-      const newTask = {
-        title: title,
-        description: description,
-      };
-      onAddTask(newTask);
-      setTitle('');
-      setDescription('');
-    }
+    const updatedTask = { ...task, title, description };
+    onUpdateTask(updatedTask);
   };
 
   return (
     <div>
-      <h2>Crear nueva tarea</h2>
+      <h2>Editar Tarea</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="title">Titulo:</label>
+          <label htmlFor="edit-title">Título:</label>
           <input
             type="text"
-            id="title"
+            id="edit-title"
             value={title}
             onChange={handleTitleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="description">Descripcion:</label>
+          <label htmlFor="edit-description">Descripción:</label>
           <textarea
-            id="description"
+            id="edit-description"
             value={description}
             onChange={handleDescriptionChange}
             required
           />
         </div>
-        <button type="submit">Agregar tarea</button>
+        <button type="submit">Guardar Cambios</button>
+        <button type="button" onClick={onCancel}>
+          Cancelar
+        </button>
       </form>
     </div>
   );
 };
 
-export default NewTaskForm;
+export default TaskEditForm;
+

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -20,8 +21,8 @@ const LoginForm = ({ onLogin }) => {
   return (
     <div>
       <h2>Login</h2>
-      <input type="text" placeholder="Username" onChange={handleUsernameChange} />
-      <input type="password" placeholder="Password" onChange={handlePasswordChange} />
+      <input type="text" placeholder="Nombre de usuario" onChange={handleUsernameChange} />
+      <input type="password" placeholder="Contraseña" onChange={handlePasswordChange} />
       <button onClick={handleLogin}>Login</button>
     </div>
   );
