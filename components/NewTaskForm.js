@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {} from '../styles/globals.css'
 
 const NewTaskForm = ({ onAddTask }) => {
   const [title, setTitle] = useState('');
@@ -26,7 +27,7 @@ const NewTaskForm = ({ onAddTask }) => {
   };
 
   return (
-    <div>
+    <div  >
       <h2>Crear nueva tarea</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -48,7 +49,7 @@ const NewTaskForm = ({ onAddTask }) => {
             required
           />
         </div>
-        <button type="submit">Agregar tarea</button>
+        <button type="submit">Agregar</button>
       </form>
     </div>
   );

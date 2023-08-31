@@ -3,6 +3,7 @@ import NewTaskForm from './NewTaskForm';
 import TaskEditForm from './TaskEditForm'; // Importa el componente de edición
 import TaskDeleteButton from './TaskDeleteButton'; // Importa el componente de eliminación
 import TaskFilter from './TaskFilter'; // Importa el componente de filtro
+import {} from '../styles/globals.css'
 
 const TasksPage = ({ user, onLogout }) => {
   const [tasks, setTasks] = useState([]);
@@ -47,7 +48,7 @@ const TasksPage = ({ user, onLogout }) => {
   const filteredTasks = filterTasks(filter, tasks);
 
   return (
-    <div>
+    <div className='centrarButton' >
       <p>Bienvenido, {user.username}!</p>
       <button onClick={onLogout}>Logout</button>
 

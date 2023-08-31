@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {} from '../styles/globals.css'
 
 
 const LoginForm = ({ onLogin }) => {
@@ -19,7 +20,7 @@ const LoginForm = ({ onLogin }) => {
   };
 
   return (
-    <div>
+    <div className='centrarButton'>
       <h2>Login</h2>
       <input type="text" placeholder="Nombre de usuario" onChange={handleUsernameChange} />
       <input type="password" placeholder="Contraseña" onChange={handlePasswordChange} />
