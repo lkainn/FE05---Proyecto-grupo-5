@@ -27,10 +27,10 @@ const NewTaskForm = ({ onAddTask }) => {
   };
 
   return (
-    <div  >
+    <div>
       <h2>Crear nueva tarea</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="input-group">
           <label htmlFor="title">Titulo:</label>
           <input
             type="text"
@@ -40,7 +40,7 @@ const NewTaskForm = ({ onAddTask }) => {
             required
           />
         </div>
-        <div>
+        <div className="input-group">
           <label htmlFor="description">Descripcion:</label>
           <textarea
             id="description"

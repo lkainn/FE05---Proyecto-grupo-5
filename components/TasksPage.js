@@ -48,30 +48,34 @@ const TasksPage = ({ user, onLogout }) => {
   const filteredTasks = filterTasks(filter, tasks);
 
   return (
-    <div className='centrarButton' >
-      <p>Bienvenido, {user.username}!</p>
-      <button onClick={onLogout}>Logout</button>
+    <div  >
+      <p className='mens-container'>Bienvenido, {user.username}!</p>
+      <button className='button-container' onClick={onLogout}>Logout</button>
 
       <NewTaskForm onAddTask={handleAddTask} />
 
-      <div>
-        <h2>Lista de tareas</h2>
-        <TaskFilter onFilterChange={handleFilterChange} /> {/* Agrega el componente de filtro */}
-        <ul>
-          {filteredTasks.map((task, index) => (
-            <li key={index}>
-              <strong>{task.title}</strong>: {task.description}
-              <button onClick={() => handleEditTask(task)}>Editar</button>
-              <TaskDeleteButton onDelete={() => handleDeleteTask(task)} /> {/* Agrega el componente de eliminación */}
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => handleToggleComplete(task)}
-              /> {/* Checkbox para tareas completadas */}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div className="task-container">
+    <h2>Lista de tareas</h2>
+    <TaskFilter onFilterChange={handleFilterChange} /> {/* Agrega el componente de filtro */}
+    <ul className="task-list">
+      {filteredTasks.map((task, index) => (
+        <li key={index} className="task-item">
+          <div className="task-info">
+            <strong>{task.title}</strong>: {task.description}
+          </div>
+          <div className="task-actions">
+            <button onClick={() => handleEditTask(task)}>Editar</button>
+            <TaskDeleteButton onDelete={() => handleDeleteTask(task)} /> {/* Agrega el componente de eliminación */}
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={() => handleToggleComplete(task)}
+            /> {/* Checkbox para tareas completadas */}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
 
       {editingTask && (
         <TaskEditForm

@@ -1,26 +1,31 @@
-
 body {
-
   background-color: rgb(209, 246, 246);
+  display: flex;
+  flex-direction: column; /* Cambiamos la dirección del flex a columna */
+  align-items: center;
+  justify-content: flex-start; /* Alineamos el contenido en la parte superior */
+  height: 100vh;
+  margin: 0;
+  padding: 20px; /* Agregamos un poco de espacio alrededor del contenido */
 }
+
 .container {
   background-color: rgb(250, 250, 250);
-  max-width: 400px;
-  margin: 0 auto;
+  width: 75%;
   padding: 30px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  text-align: center; /* Centramos el contenido horizontalmente */
 }
 
 .container2 {
-background-color: rgb(250, 250, 250);
-max-width: 800px;
-margin: 0 auto;
-padding: 30px;
-border: 1px solid #ccc;
-border-radius: 4px;
+  background-color: rgb(250, 250, 250);
+  width: 75%;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center; /* Centramos el contenido horizontalmente */
 }
-
 
 form {
   display: flex;
@@ -30,73 +35,112 @@ form {
   margin: auto;
 }
 
+h1, h2, p {
+  text-align: center;
+  margin: 0; /* Eliminamos el margen superior e inferior para el título y el mensaje */
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between; /* Alineamos el título, el botón y el mensaje horizontalmente */
+  align-items: center; /* Alineamos verticalmente el título, el botón y el mensaje */
+  margin-bottom: 20px; /* Agregamos espacio entre el título y los elementos */
+}
+
+.label-container .logoutButton,
+.label-container .mensBienvenida {
+  flex: 1; /* Hacemos que el botón y el mensaje ocupen el espacio disponible */
+  text-align: right; /* Alineamos el botón y el mensaje a la derecha */
+}
+
 label {
   font-weight: bold;
-  margin-bottom: 10px;
-
-
-}
-
-h1 {
-  text-align: center;
-}
-
-h2 {
-  text-align: center;
-}
-
-p {
-  text-align: center;
+  margin: 0; /* Eliminamos el margen inferior para el título */
 }
 
 input {
-  margin-bottom:40px;
+  margin-bottom: 20px;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 textarea {
+  width: 100%;
+}
 
-  width: 200px;
+.button-container {
+  display: flex;
+  justify-content: flex-start; /* Alineamos los botones a la derecha */
+}
+
+.mens-container {
+  display: flex;
+  justify-content: flex-start; /* Alineamos los botones a la derecha */
 }
 
 button {
-  width: 100px;
-  padding: 10px;
+  width: auto; /* Permitimos que el ancho del botón sea automático */
+  padding: 10px 20px; /* Ajustamos el padding para que los botones no sean demasiado largos */
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-bottom:10px;
+  margin-left: 10px; /* Agregamos un margen izquierdo entre los botones */
 }
 
 button:hover {
   background-color: #0056b3;
 }
 
-.centrarButton{
+.input-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  height: 100%; /* Centrar verticalmente */
-
+  margin-bottom: 10px;
 }
 
-.centrarInput{
+.input-group label {
+  flex: 1;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.input-group input,
+.input-group textarea {
+  flex: 2;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.task-container {
+  text-align: center; /* Centra el contenido horizontalmente */
+  margin: 20px; /* Agrega un margen alrededor del contenedor */
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+}
+
+.task-item {
   display: flex;
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-
-
+  justify-content: space-between; /* Espacio uniforme entre elementos */
+  align-items: center; /* Centra verticalmente los elementos */
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
-.labelRegistro {
+.task-info {
+  flex: 2; /* El contenido de la tarea ocupa la mayor parte del espacio */
+}
 
-  
-  width: 500px;
-
-
+.task-actions {
+  flex: 1; /* Los botones y el checkbox ocupan menos espacio */
+  display: flex;
+  justify-content: flex-end; /* Botones alineados a la derecha */
+  gap: 10px; /* Espacio entre los botones */
 }
