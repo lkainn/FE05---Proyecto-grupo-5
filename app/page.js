@@ -1,16 +1,34 @@
-import React from 'react';
+"use client"
+import React, { useState } from 'react';
 import Link from 'next/link';
+import LoginForm from '../components/LoginForm';
+import TasksPage from '../components/TasksPage';
 import {} from '../styles/globals.css'
 
+const Home = () => {
+  const [user, setUser] = useState(null);
 
+  const handleLogin = (loggedInUser) => {
+    setUser(loggedInUser);
+  };
 
-function HomePage() {
+  const handleLogout = () => {
+    setUser(null);
+  };
+
   return (
-    <div className='inicio' >
-      <h1>Bienvenidos a nuestra pagina</h1>
-      <Link href='/_app'> Iniciar sesion </Link>
+    <div className='container'>
+      <h1>Administrador de tareas</h1>
+      {user ? (
+        <TasksPage user={user} onLogout={handleLogout} />
+      ) : (
+        <>
+          <LoginForm onLogin={handleLogin} />
+          <p>No tenes cuenta? <Link href="/register">Regístrate aca</Link></p>
+        </>
+      )}
     </div>
   );
-}
+};
 
-export default HomePage;
+export default Home;
