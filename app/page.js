@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import Link from 'next/link';
 import LoginForm from '../components/LoginForm';
@@ -16,7 +17,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <h1>Administrador de tareas</h1>
       {user ? (
         <TasksPage user={user} onLogout={handleLogout} />
